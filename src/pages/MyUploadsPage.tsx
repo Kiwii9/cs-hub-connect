@@ -12,10 +12,11 @@ import { format } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
 
 const typeLabels: Record<string, string> = {
-  notes: "Notes", summary: "Study Guide", lecture_link: "Lecture Link", practice: "Exercises",
+  theory: "Theory", lab_practical: "Lab / Practical", notes: "Theory", summary: "Theory", lecture_link: "Theory", practice: "Lab / Practical",
 };
 
 const statusColors: Record<string, string> = {
+  pending: "bg-chart-3/10 text-chart-3 border-chart-3/30",
   active: "bg-chart-2/10 text-chart-2 border-chart-2/30",
   reported: "bg-chart-1/10 text-chart-1 border-chart-1/30",
   removed: "bg-destructive/10 text-destructive border-destructive/30",
@@ -67,7 +68,7 @@ const MyUploadsPage = () => {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold">My Uploads</h1>
-            <p className="text-muted-foreground">Manage your submitted resources</p>
+            <p className="text-muted-foreground">Manage your submitted resources. Pending items become public after admin approval.</p>
           </div>
           <Link to="/upload">
             <Button className="border-2">
@@ -106,7 +107,8 @@ const MyUploadsPage = () => {
                         </Badge>
                       </div>
                       <p className="text-sm text-muted-foreground">
-                        {resource.courses?.code} · {resource.academic_year} · Sem {resource.semester}
+                        {resource.college || resource.courses?.code} · {resource.major || resource.courses?.name} · {resource.academic_year} · Sem {resource.semester}
+                        {resource.course_label && ` · ${resource.course_label}`}
                         {resource.lecturers?.name && ` · ${resource.lecturers.name}`}
                       </p>
                       <p className="text-xs text-muted-foreground mt-1">

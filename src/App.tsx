@@ -7,6 +7,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import Index from "./pages/Index";
 import CoursePage from "./pages/CoursePage";
+import MajorPage from "./pages/MajorPage";
 import ResourceDetailPage from "./pages/ResourceDetailPage";
 import UploadPage from "./pages/UploadPage";
 import MyUploadsPage from "./pages/MyUploadsPage";
@@ -14,6 +15,7 @@ import AdminPage from "./pages/AdminPage";
 import LoginPage from "./pages/LoginPage";
 import DisclaimerPage from "./pages/DisclaimerPage";
 import RoadmapPage from "./pages/RoadmapPage";
+import ProfilePage from "./pages/ProfilePage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,9 +31,11 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/course/:id" element={<CoursePage />} />
+              <Route path="/major/:college/:major" element={<MajorPage />} />
               <Route path="/resource/:id" element={<ResourceDetailPage />} />
               <Route path="/upload" element={<UploadPage />} />
               <Route path="/my-uploads" element={<MyUploadsPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
               <Route path="/admin" element={<AdminPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/disclaimer" element={<DisclaimerPage />} />

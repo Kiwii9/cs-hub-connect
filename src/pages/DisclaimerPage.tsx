@@ -23,7 +23,7 @@ const DisclaimerPage = () => {
             </div>
             <div>
               <h1 className="text-3xl font-bold">Academic Integrity</h1>
-              <p className="text-muted-foreground">Guidelines for KFU Study Hub</p>
+              <p className="text-muted-foreground">Guidelines for KFU Resource Hub</p>
             </div>
           </div>
 
@@ -39,15 +39,15 @@ const DisclaimerPage = () => {
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-chart-2 mt-0.5 flex-shrink-0" />
-                    <span><strong>Personal Notes:</strong> Lecture notes you took yourself during class</span>
+                    <span><strong>Theory Resources:</strong> Student-made lecture notes, explanations, and study guides</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-chart-2 mt-0.5 flex-shrink-0" />
-                    <span><strong>Study Guides:</strong> Revision guides you created from course materials</span>
+                    <span><strong>Lab / Practical Resources:</strong> Student-made lab notes, practical checklists, and safe learning references</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-chart-2 mt-0.5 flex-shrink-0" />
-                    <span><strong>Self-made Exercises:</strong> Original revision questions (not from actual exams)</span>
+                    <span><strong>Self-made Practice:</strong> Original revision questions that are not copied from exams</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-chart-2 mt-0.5 flex-shrink-0" />
@@ -113,11 +113,11 @@ const DisclaimerPage = () => {
 
             <div className="text-center pt-8">
               <p className="text-muted-foreground mb-4">
-                By using KFU Study Hub, you agree to follow these guidelines.
+                By using KFU Resource Hub, you agree to follow these guidelines. The platform is 100% free.
               </p>
               <Link to="/">
                 <Button size="lg" className="border-2">
-                  Back to Courses
+                  Back to Colleges
                 </Button>
               </Link>
             </div>

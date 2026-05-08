@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { AlertTriangle, GraduationCap } from "lucide-react";
+import { AlertTriangle, GraduationCap, Coffee } from "lucide-react";
 import kfuLogo from "@/assets/kfu-logo.png";
 
 const Footer = () => {
@@ -11,13 +11,12 @@ const Footer = () => {
             <div className="flex items-center gap-3 mb-3">
               <img src={kfuLogo} alt="KFU Logo" className="h-10 w-auto" />
               <div>
-                <span className="font-bold">KFU Study Hub</span>
-                <p className="text-xs text-muted-foreground">By Students, For Students</p>
+                <span className="font-bold">KFU Resource Hub</span>
+                <p className="text-xs text-muted-foreground">100% Free • مجاني بالكامل</p>
               </div>
             </div>
             <p className="text-sm text-muted-foreground">
-              A community-driven resource sharing platform for King Faisal University students. 
-              Serving every KFU college and major as the catalog grows.
+              A 100% free community-driven resource sharing platform for King Faisal University students. Organized by college and major, with moderated Theory and Lab/Practical resources.
             </p>
           </div>
 
@@ -26,7 +25,7 @@ const Footer = () => {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link to="/" className="text-muted-foreground hover:text-foreground">
-                  Browse Courses
+                  Browse Colleges & Majors
                 </Link>
               </li>
               <li>
@@ -53,17 +52,22 @@ const Footer = () => {
               <h4 className="font-bold">Academic Integrity</h4>
             </div>
             <p className="text-sm text-muted-foreground mb-3">
-              No leaked exams or cheating materials allowed. All resources must be student-made notes, lecture links, or educational explanations.
+              No leaked exams or cheating materials allowed. All resources must be student-made theory, lab/practical material, legitimate links, or educational explanations.
             </p>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <GraduationCap className="w-4 h-4" />
-              <span>Official @student.kfu.edu.sa and @kfu.edu.sa emails accepted</span>
+            <div className="space-y-3">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <GraduationCap className="w-4 h-4" />
+                <span>Official @student.kfu.edu.sa and @kfu.edu.sa emails accepted</span>
+              </div>
+              <a href="https://ko-fi.com/kiwii9" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium hover:bg-background">
+                <Coffee className="w-4 h-4" /> Support the creator on Ko-fi
+              </a>
             </div>
           </div>
         </div>
 
         <div className="border-t border-border mt-8 pt-6 text-center text-sm text-muted-foreground">
-          <p>© 2026 KFU Study Hub. Made with ❤️ by students, for students.</p>
+          <p>© 2026 KFU Resource Hub. Free for KFU students. Made with ❤️ by students, for students.</p>
         </div>
       </div>
     </footer>

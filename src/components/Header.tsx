@@ -14,10 +14,11 @@ const Header = () => {
   const isActive = (path: string) => location.pathname === path;
 
   const navItems = [
-    { path: "/", label: "Courses", show: true },
+    { path: "/", label: "Colleges", show: true },
     { path: "/roadmap", label: "Roadmap", icon: Map, show: true },
     { path: "/upload", label: "Upload", icon: Upload, show: true },
     { path: "/my-uploads", label: "My Uploads", icon: FileText, show: !!user },
+    { path: "/profile", label: "Profile", icon: User, show: !!user },
     { path: "/admin", label: "Admin", icon: Shield, show: isAdmin },
   ];
 
@@ -44,8 +45,8 @@ const Header = () => {
           <Link to="/" className="flex items-center gap-3 group">
             <img src={kfuLogo} alt="KFU Logo" className="h-12 w-auto" />
             <div>
-              <h1 className="text-xl font-bold tracking-tight">KFU Study Hub</h1>
-              <p className="text-xs text-muted-foreground">By Students, For Students</p>
+              <h1 className="text-xl font-bold tracking-tight">KFU Resource Hub</h1>
+              <p className="text-xs text-muted-foreground">Free • English + Arabic</p>
             </div>
           </Link>
 
@@ -85,7 +86,7 @@ const Header = () => {
               <SheetContent side="right" className="w-72 p-6">
                 <div className="flex items-center gap-3 mb-6">
                   <img src={kfuLogo} alt="KFU Logo" className="h-10 w-auto" />
-                  <span className="font-bold">KFU Study Hub</span>
+                  <span className="font-bold">KFU Resource Hub</span>
                 </div>
                 <nav className="flex flex-col gap-2">
                   <NavLinks mobile />

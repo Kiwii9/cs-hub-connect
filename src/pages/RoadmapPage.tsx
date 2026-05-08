@@ -20,10 +20,10 @@ const roadmapItems: RoadmapItem[] = [
     status: "completed",
     icon: BookOpen,
     features: [
-      "Course directory for KFU majors",
-      "Resource browsing (Notes and Lecture Links)",
+      "College → Major navigation for KFU",
+      "Theory and Lab/Practical resource browsing",
       "Search and filter functionality",
-      "Upload resources (student email required)",
+      "Upload resources with approval before public release",
       "Report inappropriate content",
       "Admin moderation panel"
     ]
@@ -53,13 +53,13 @@ const roadmapItems: RoadmapItem[] = [
     ]
   },
   {
-    title: "Major Coverage",
+    title: "KFU-Wide Coverage",
     description: "Support every KFU college",
     status: "planned",
     icon: Sparkles,
     features: [
       "College and major filters",
-      "Seed data for every KFU college",
+      "Exact KFU college and major catalog",
       "Major-specific course tagging",
       "Cleaner admin workflow for adding courses"
     ]
@@ -71,7 +71,7 @@ const roadmapItems: RoadmapItem[] = [
     icon: MessageSquare,
     features: [
       "Comments and discussions on resources",
-      "Upvoting/rating system",
+      "Upvote and Praise recognition system",
       "Resource requests",
       "Study groups"
     ]
@@ -94,7 +94,7 @@ const roadmapItems: RoadmapItem[] = [
     status: "planned",
     icon: Trophy,
     features: [
-      "Points for uploads",
+      "Recognition for helpful uploads",
       "Contributor badges",
       "Leaderboards",
       "Recognition for top helpers"
@@ -123,7 +123,7 @@ const RoadmapPage = () => {
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold mb-4">Platform Roadmap</h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              KFU Study Hub is built by students, for students. Here's what we're working on to make it even better.
+              KFU Resource Hub is built by students, for students. Here's what we're working on to make it even better.
             </p>
           </div>
 

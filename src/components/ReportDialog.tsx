@@ -49,7 +49,7 @@ const ReportDialog = ({ resourceId, resourceTitle }: ReportDialogProps) => {
         reason,
         details: details || undefined,
       });
-      toast({ title: "Report submitted", description: "Thank you for helping keep KFU Study Hub safe." });
+      toast({ title: "Report submitted", description: "Thank you for helping keep KFU Resource Hub safe." });
       setOpen(false);
       setReason('');
       setDetails('');

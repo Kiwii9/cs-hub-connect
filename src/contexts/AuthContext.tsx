@@ -38,16 +38,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         .eq("user_id", userId)
         .eq("role", "admin")
         .maybeSingle();
-
       if (error) {
-        console.warn("Admin role check skipped:", error.message);
+        console.warn("Admin check skipped:", error.message);
         setIsAdmin(false);
         return;
       }
-
       setIsAdmin(!!data);
     } catch (error) {
-      console.warn("Admin role check failed:", error);
+      console.warn("Admin check failed:", error);
       setIsAdmin(false);
     }
   };
@@ -55,47 +53,33 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     let mounted = true;
 
-    const initAuth = async () => {
+    const init = async () => {
       try {
         const { data } = await supabase.auth.getSession();
-
         if (!mounted) return;
-
-        const currentSession = data.session;
-        setSession(currentSession);
-        setUser(currentSession?.user ?? null);
+        setSession(data.session);
+        setUser(data.session?.user ?? null);
         setLoading(false);
-
-        if (currentSession?.user) {
-          checkAdmin(currentSession.user.id);
-        } else {
-          setIsAdmin(false);
-        }
+        if (data.session?.user) checkAdmin(data.session.user.id);
       } catch (error) {
         console.warn("Auth init failed:", error);
         if (mounted) {
-          setUser(null);
           setSession(null);
+          setUser(null);
           setIsAdmin(false);
           setLoading(false);
         }
       }
     };
 
-    initAuth();
+    init();
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, newSession) => {
-      setSession(newSession);
-      setUser(newSession?.user ?? null);
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+      setSession(nextSession);
+      setUser(nextSession?.user ?? null);
       setLoading(false);
-
-      if (newSession?.user) {
-        checkAdmin(newSession.user.id);
-      } else {
-        setIsAdmin(false);
-      }
+      if (nextSession?.user) checkAdmin(nextSession.user.id);
+      else setIsAdmin(false);
     });
 
     return () => {
