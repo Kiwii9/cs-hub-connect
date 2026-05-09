@@ -23,7 +23,7 @@ const DisclaimerPage = () => {
             </div>
             <div>
               <h1 className="text-3xl font-bold">Academic Integrity</h1>
-              <p className="text-muted-foreground">Guidelines for KFU Resource Hub</p>
+              <p className="text-muted-foreground">Guidelines for Marja' | مرجع</p>
             </div>
           </div>
 
@@ -113,11 +113,11 @@ const DisclaimerPage = () => {
 
             <div className="text-center pt-8">
               <p className="text-muted-foreground mb-4">
-                By using KFU Resource Hub, you agree to follow these guidelines. The platform is 100% free.
+                By using Marja' | مرجع, you agree to follow these guidelines. The platform is 100% free.
               </p>
               <Link to="/">
                 <Button size="lg" className="border-2">
-                  Back to Colleges
+                  Back to Search
                 </Button>
               </Link>
             </div>

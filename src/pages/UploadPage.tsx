@@ -16,7 +16,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { uploadResourceSchema } from "@/lib/validations";
 import { supabase } from "@/integrations/supabase/client";
-import { academicYears, batchYears, getMajorsForCollege, kfuColleges, resourceTypeOptions, semesters } from "@/data/kfuCatalog";
+import { academicYears, batchYears, fileTypeOptions, getMajorsForCollege, kfuColleges, sectionOptions, semesters } from "@/data/kfuCatalog";
 
 const sections = ["A", "B", "C", "D"];
 const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
@@ -32,6 +32,7 @@ const UploadPage = () => {
   const [major, setMajor] = useState("");
   const majors = useMemo(() => getMajorsForCollege(college), [college]);
   const [resourceType, setResourceType] = useState("");
+  const [fileType, setFileType] = useState("");
   const [title, setTitle] = useState("");
   const [courseLabel, setCourseLabel] = useState("");
   const [academicYear, setAcademicYear] = useState("");
@@ -77,6 +78,7 @@ const UploadPage = () => {
       college,
       major,
       type: resourceType,
+      file_type: fileType,
       title,
       course_label: courseLabel || undefined,
       academic_year: academicYear,
@@ -127,6 +129,7 @@ const UploadPage = () => {
         major,
         course_label: courseLabel || null,
         type: resourceType as "theory" | "lab_practical",
+        file_type: fileType,
         title,
         academic_year: academicYear,
         semester,
@@ -145,7 +148,7 @@ const UploadPage = () => {
       });
 
       toast({ title: "Submitted for approval", description: "Your resource is saved and will appear publicly after admin review." });
-      setCollege(""); setMajor(""); setResourceType(""); setTitle(""); setCourseLabel(""); setAcademicYear("");
+      setCollege(""); setMajor(""); setResourceType(""); setFileType(""); setTitle(""); setCourseLabel(""); setAcademicYear("");
       setSemester(""); setBatchYear(""); setLecturerId(""); setSection("");
       setWeek(""); setTopic(""); setTags(""); setDescription("");
       setLinkUrl(""); setTextContent(""); setFile(null);
@@ -184,14 +187,14 @@ const UploadPage = () => {
       <Header />
       <main className="flex-1 container mx-auto px-4 py-8">
         <Link to="/" className="inline-flex items-center text-muted-foreground hover:text-foreground mb-6">
-          <ArrowLeft className="w-4 h-4 mr-2" />Back to Colleges
+          <ArrowLeft className="w-4 h-4 mr-2" />Back to Search
         </Link>
 
         <div className="max-w-4xl mx-auto">
           <div className="mb-8 rounded-3xl border bg-card p-6 shadow-sm">
             <p className="text-sm font-medium text-primary mb-2">100% Free • مجاني بالكامل</p>
             <h1 className="text-3xl font-bold mb-2">Upload KFU Resource</h1>
-            <p className="text-muted-foreground">Choose your college and major first, then submit Theory or Lab/Practical material for moderation.</p>
+            <p className="text-muted-foreground">Choose your college and major first, choose the Theory or Lab/Practical section, then label the exact file type for students.</p>
           </div>
 
           <Alert className="mb-8 border border-chart-1/30 bg-chart-1/10 rounded-2xl">
@@ -242,21 +245,33 @@ const UploadPage = () => {
             <Card className="border rounded-3xl">
               <CardHeader>
                 <CardTitle>Resource Information</CardTitle>
-                <CardDescription>Only two public categories are used: Theory or Lab/Practical.</CardDescription>
+                <CardDescription>Section means where the material belongs. File type explains what the upload actually is.</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-3 gap-4">
                   <div className="space-y-2">
-                    <Label>Resource Type *</Label>
+                    <Label>Section *</Label>
                     <Select value={resourceType} onValueChange={setResourceType}>
-                      <SelectTrigger className="border"><SelectValue placeholder="Select type" /></SelectTrigger>
+                      <SelectTrigger className="border"><SelectValue placeholder="Select section" /></SelectTrigger>
                       <SelectContent className="bg-popover border">
-                        {resourceTypeOptions.map((type) => (
+                        {sectionOptions.map((type) => (
                           <SelectItem key={type.value} value={type.value}>{type.label} / {type.labelAr}</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                     <FieldError field="type" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>File Type *</Label>
+                    <Select value={fileType} onValueChange={setFileType}>
+                      <SelectTrigger className="border"><SelectValue placeholder="Select file type" /></SelectTrigger>
+                      <SelectContent className="bg-popover border">
+                        {fileTypeOptions.map((type) => (
+                          <SelectItem key={type.value} value={type.value}>{type.label} / {type.labelAr}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FieldError field="file_type" />
                   </div>
                   <div className="space-y-2">
                     <Label>Title *</Label>
@@ -302,9 +317,9 @@ const UploadPage = () => {
               <CardContent className="space-y-4">
                 <div className="grid md:grid-cols-4 gap-4">
                   <div className="space-y-2">
-                    <Label>Section</Label>
+                    <Label>Class Group</Label>
                     <Select value={section} onValueChange={setSection}>
-                      <SelectTrigger className="border"><SelectValue placeholder="Select" /></SelectTrigger>
+                      <SelectTrigger className="border"><SelectValue placeholder="Select group" /></SelectTrigger>
                       <SelectContent className="bg-popover border">{sections.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}</SelectContent>
                     </Select>
                   </div>
@@ -366,7 +381,7 @@ const UploadPage = () => {
                 {resourceType === "lab_practical" ? <Beaker className="h-5 w-5 mt-1" /> : <BookOpen className="h-5 w-5 mt-1" />}
                 <div>
                   <p className="font-semibold">Moderation enabled</p>
-                  <p className="text-sm text-muted-foreground">Your upload will be reviewed before it goes live to the public.</p>
+                  <p className="text-sm text-muted-foreground">Your upload will be reviewed before it goes live. Section: Theory or Lab/Practical. File type: notes, slides, past exams, and more.</p>
                 </div>
               </div>
               <Button type="submit" size="lg" className="rounded-full border" disabled={uploading}>

@@ -4,7 +4,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Beaker, ExternalLink, Calendar, User, GraduationCap, Share2 } from "lucide-react";
 import { format } from "date-fns";
-import { legacyResourceTypeLabels } from "@/data/kfuCatalog";
+import { fileTypeLabels, fileTypeLabelsAr, legacyResourceTypeLabels } from "@/data/kfuCatalog";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { useToast } from "@/hooks/use-toast";
 
 interface ResourceCardProps {
@@ -12,6 +13,7 @@ interface ResourceCardProps {
     id: string;
     type: string;
     title: string;
+    file_type?: string | null;
     description?: string | null;
     academic_year: string;
     semester: string;
@@ -47,6 +49,7 @@ const typeColors: Record<string, string> = {
 
 const ResourceCard = ({ resource }: ResourceCardProps) => {
   const { toast } = useToast();
+  const { t, isArabic } = useLanguage();
   const TypeIcon = typeIcons[resource.type] || BookOpen;
   const tags = resource.tags ?? [];
   const publicLink = `${window.location.origin}/resource/${resource.id}`;
@@ -57,11 +60,11 @@ const ResourceCard = ({ resource }: ResourceCardProps) => {
         await navigator.share({ title: resource.title, url: publicLink });
       } else {
         await navigator.clipboard.writeText(publicLink);
-        toast({ title: "Link copied", description: "Public resource link copied to clipboard." });
+        toast({ title: t("Link copied", "تم نسخ الرابط"), description: t("Public resource link copied to clipboard.", "تم نسخ رابط المصدر العام.") });
       }
     } catch {
       await navigator.clipboard.writeText(publicLink);
-      toast({ title: "Link copied", description: "Public resource link copied to clipboard." });
+      toast({ title: t("Link copied", "تم نسخ الرابط"), description: t("Public resource link copied to clipboard.", "تم نسخ رابط المصدر العام.") });
     }
   };
 
@@ -77,8 +80,13 @@ const ResourceCard = ({ resource }: ResourceCardProps) => {
             <div className="flex items-start justify-between gap-4 mb-2">
               <div className="min-w-0">
                 <Badge variant="outline" className={`mb-2 text-xs font-medium border ${typeColors[resource.type] || ""}`}>
-                  {legacyResourceTypeLabels[resource.type] || resource.type}
+                  {t(legacyResourceTypeLabels[resource.type] || resource.type, resource.type === "lab_practical" ? "عملي / مختبر" : "نظري")}
                 </Badge>
+                {resource.file_type && (
+                  <Badge variant="secondary" className="mb-2 ml-2 text-xs font-medium">
+                    {t(fileTypeLabels[resource.file_type] || resource.file_type, fileTypeLabelsAr[resource.file_type] || resource.file_type)}
+                  </Badge>
+                )}
                 <h3 className="font-bold text-base leading-tight line-clamp-2">{resource.title}</h3>
                 {(resource.course_label || resource.courses?.name) && (
                   <p className="mt-1 text-xs text-muted-foreground">{resource.course_label || `${resource.courses?.code ?? ""} ${resource.courses?.name ?? ""}`}</p>
@@ -86,11 +94,11 @@ const ResourceCard = ({ resource }: ResourceCardProps) => {
               </div>
               <div className="flex flex-shrink-0 gap-2">
                 <Button size="sm" variant="outline" className="rounded-full border" onClick={handleShare}>
-                  <Share2 className="w-4 h-4 mr-1" />Share
+                  <Share2 className={`w-4 h-4 ${isArabic ? "ml-1" : "mr-1"}`} />{t("Share", "مشاركة")}
                 </Button>
                 <Link to={`/resource/${resource.id}`}>
                   <Button size="sm" variant="outline" className="rounded-full border">
-                    <ExternalLink className="w-4 h-4 mr-1" />Open
+                    <ExternalLink className={`w-4 h-4 ${isArabic ? "ml-1" : "mr-1"}`} />{t("Open", "فتح")}
                   </Button>
                 </Link>
               </div>
@@ -99,10 +107,10 @@ const ResourceCard = ({ resource }: ResourceCardProps) => {
             {resource.description && <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{resource.description}</p>}
 
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground mb-3">
-              <div className="flex items-center gap-1"><User className="w-3.5 h-3.5" /><span>{resource.lecturers?.name || "Student upload"}</span></div>
+              <div className="flex items-center gap-1"><User className="w-3.5 h-3.5" /><span>{resource.lecturers?.name || t("Student upload", "رفع طالب")}</span></div>
               <div className="flex items-center gap-1"><Calendar className="w-3.5 h-3.5" /><span>{resource.academic_year} • Sem {resource.semester}</span></div>
               <div className="flex items-center gap-1"><GraduationCap className="w-3.5 h-3.5" /><span>{resource.major || "KFU"}</span></div>
-              {resource.section && <span className="font-mono">Section {resource.section}</span>}
+              {resource.section && <span className="font-mono">{t("Class", "شعبة")} {resource.section}</span>}
             </div>
 
             {tags.length > 0 && (
@@ -112,7 +120,7 @@ const ResourceCard = ({ resource }: ResourceCardProps) => {
               </div>
             )}
 
-            <p className="text-xs text-muted-foreground mt-3">Added {format(new Date(resource.created_at), "MMM d, yyyy")}</p>
+            <p className="text-xs text-muted-foreground mt-3">{t("Added", "أُضيف")} {format(new Date(resource.created_at), "MMM d, yyyy")}</p>
           </div>
         </div>
       </CardContent>

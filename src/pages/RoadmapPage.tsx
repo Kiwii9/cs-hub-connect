@@ -21,7 +21,7 @@ const roadmapItems: RoadmapItem[] = [
     icon: BookOpen,
     features: [
       "College → Major navigation for KFU",
-      "Theory and Lab/Practical resource browsing",
+      "Theory/Lab sections resource browsing",
       "Search and filter functionality",
       "Upload resources with approval before public release",
       "Report inappropriate content",
@@ -123,7 +123,7 @@ const RoadmapPage = () => {
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold mb-4">Platform Roadmap</h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              KFU Resource Hub is built by students, for students. Here's what we're working on to make it even better.
+              Marja' | مرجع is built by students, for students. Here's what we're working on to make it even better.
             </p>
           </div>
 

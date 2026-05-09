@@ -9,6 +9,7 @@ export type ResourceInput = {
   major: string;
   course_label?: string | null;
   type: "theory" | "lab_practical";
+  file_type: string;
   title: string;
   description?: string;
   academic_year: string;

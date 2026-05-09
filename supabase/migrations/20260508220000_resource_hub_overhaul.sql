@@ -7,7 +7,8 @@ ALTER TABLE public.resources
 ALTER TABLE public.resources
   ADD COLUMN IF NOT EXISTS college TEXT,
   ADD COLUMN IF NOT EXISTS major TEXT,
-  ADD COLUMN IF NOT EXISTS course_label TEXT;
+  ADD COLUMN IF NOT EXISTS course_label TEXT,
+  ADD COLUMN IF NOT EXISTS file_type TEXT;
 
 UPDATE public.resources r
 SET
@@ -20,6 +21,31 @@ WHERE r.course_id = c.id
 
 CREATE INDEX IF NOT EXISTS idx_resources_college_major ON public.resources(college, major);
 CREATE INDEX IF NOT EXISTS idx_resources_course_label ON public.resources(course_label);
+
+ALTER TABLE public.resources
+  DROP CONSTRAINT IF EXISTS resources_file_type_check;
+
+ALTER TABLE public.resources
+  ADD CONSTRAINT resources_file_type_check
+  CHECK (
+    file_type IS NULL OR file_type IN (
+      'student_explanation',
+      'student_notes',
+      'summary',
+      'doctor_revision',
+      'past_exams_compilation',
+      'recorded_lecture',
+      'slides',
+      'etc_other'
+    )
+  );
+
+UPDATE public.resources
+SET file_type = COALESCE(file_type, 'etc_other')
+WHERE file_type IS NULL;
+
+CREATE INDEX IF NOT EXISTS idx_resources_file_type ON public.resources(file_type);
+
 
 ALTER TABLE public.profiles
   ADD COLUMN IF NOT EXISTS college TEXT,

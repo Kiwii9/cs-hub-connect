@@ -1,4 +1,10 @@
 export const kfuCollegeMajors = {
+  "College of Computer Sciences & Information Technology (CCSIT)": [
+    "Computer Science",
+    "Information Systems",
+    "Computer Engineering",
+    "Computer Network Systems",
+  ],
   "College of Business Administration": [
     "Management",
     "Accounting",
@@ -62,10 +68,28 @@ export const getMajorsForCollege = (college: string) => {
   return (kfuCollegeMajors as Record<string, readonly string[]>)[college] ?? [];
 };
 
-export const resourceTypeOptions = [
+export const sectionOptions = [
   { value: "theory", label: "Theory", labelAr: "نظري" },
   { value: "lab_practical", label: "Lab / Practical", labelAr: "عملي / مختبر" },
 ] as const;
+
+// Backward-compatible alias for older components/imports. In the database this is still stored
+// in the existing `resources.type` column, but the UI now calls it "Section".
+export const resourceTypeOptions = sectionOptions;
+
+export const fileTypeOptions = [
+  { value: "student_explanation", label: "Student Explanation", labelAr: "شرح طالب" },
+  { value: "student_notes", label: "Student Notes", labelAr: "ملاحظات طالب" },
+  { value: "summary", label: "Summary", labelAr: "ملخص" },
+  { value: "doctor_revision", label: "Doctor Revision", labelAr: "مراجعة الدكتور" },
+  { value: "past_exams_compilation", label: "Past Exams Compilation", labelAr: "تجميع اختبارات سابقة" },
+  { value: "recorded_lecture", label: "Recorded Lecture", labelAr: "محاضرة مسجلة" },
+  { value: "slides", label: "Slides", labelAr: "سلايدات" },
+  { value: "etc_other", label: "Etc / Other", labelAr: "أخرى" },
+] as const;
+
+export const fileTypeLabels = Object.fromEntries(fileTypeOptions.map((item) => [item.value, item.label])) as Record<string, string>;
+export const fileTypeLabelsAr = Object.fromEntries(fileTypeOptions.map((item) => [item.value, item.labelAr])) as Record<string, string>;
 
 export const legacyResourceTypeLabels: Record<string, string> = {
   notes: "Theory",

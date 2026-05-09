@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { kfuColleges, getMajorsForCollege } from "@/data/kfuCatalog";
+import { fileTypeOptions, kfuColleges, getMajorsForCollege } from "@/data/kfuCatalog";
 
 export const acceptedKfuEmailDomains = ["@student.kfu.edu.sa", "@kfu.edu.sa"] as const;
 export const kfuEmailPattern = /^[a-z0-9._%+-]+@(student\.)?kfu\.edu\.sa$/i;
@@ -12,6 +12,9 @@ export const uploadResourceSchema = z.object({
   major: z.string().min(1, "Please select a major"),
   type: z.enum(["theory", "lab_practical"], {
     required_error: "Please select Theory or Lab / Practical",
+  }),
+  file_type: z.enum(fileTypeOptions.map((item) => item.value) as [string, ...string[]], {
+    required_error: "Please select a file type",
   }),
   title: z.string().trim().min(3, "Title must be at least 3 characters").max(200, "Title must be under 200 characters"),
   course_label: z.string().max(120, "Course / subject label must be under 120 characters").optional(),
