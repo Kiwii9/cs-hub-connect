@@ -31,32 +31,18 @@ A free-of-charge, community-driven student resource platform for King Faisal Uni
 
 | Home / الرئيسية | Upload Resource / رفع مصدر |
 |---|---|
-| ![Home page](docs/screenshots/home.png) | ![Upload page](docs/screenshots/upload.png) |
+| ![Home page](docs/screenshots/home.jpeg) | ![Upload page](docs/screenshots/upload.jpeg) |
 
 | College & Major Browsing / تصفح الكليات والتخصصات | Resource Details / تفاصيل المصدر |
 |---|---|
 | ![College and major page](docs/screenshots/college-major.png) | ![Resource details page](docs/screenshots/resource-details.png) |
 
-| Profile / الملف الشخصي | Admin Moderation / لوحة المراجعة |
+| Profile / الملف الشخصي | 
 |---|---|
-| ![Profile page](docs/screenshots/profile.png) | ![Admin moderation page](docs/screenshots/admin.png) |
+| ![Profile page](docs/screenshots/profile.jpeg) |
 
-### Suggested screenshot commands | طريقة تجهيز مجلد الصور
 
-```bash
-mkdir -p docs/screenshots
-```
 
-Recommended screenshot names:
-
-```txt
-home.png
-upload.png
-college-major.png
-resource-details.png
-profile.png
-admin.png
-```
 
 ---
 
